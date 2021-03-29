@@ -16,7 +16,7 @@ async function run() {
     const schema = core.getInput("schema").split(",");
     const output = core.getInput("output");
 
-    const pushBranch = core.getInput("push-branch");
+    const pushBranch = getBranchName();
 
     await gqldocInstall(tag);
 
@@ -166,6 +166,15 @@ async function gqldocInstall(tag: string) {
   let extractedPath = await tc.extractTar(binPath);
   core.info(`Successfully extracted to ${extractedPath}`);
   core.addPath(extractedPath);
+}
+
+function getBranchName() {
+  const ref = process.env.GITHUB_REF?.split("/").slice(2).join("/");
+  const source = process.env.GITHUB_HEAD_REF;
+  if (github.context.payload.pull_request) {
+    return source ?? "";
+  }
+  return ref ?? "";
 }
 
 run();

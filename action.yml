@@ -23,9 +23,6 @@ inputs:
     description: 'gqldoc-version you want'
     default: latest
     required: true
-  push-branch:
-    description: 'Destination branch to push generated docs. Can be passed in using $\{{ github.ref }}'
-    required: false
   github-token:
     description: 'Token for the repository. Can be passed in using {{ secrets.GITHUB_TOKEN }}'
     required: true
