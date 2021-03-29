@@ -76,7 +76,7 @@ async function gitPush() {
   const repo = process.env.GITHUB_REPOSITORY ?? "";
   const remote = `https://${actor}:${token}@github.com/${repo}.git`;
   const pushBranch = getBranchName();
-  await exec("git", [remote, "push", "origin", pushBranch]);
+  await exec("git", ["push", remote, "origin", pushBranch]);
 }
 
 async function gqldocInstall(tag: string) {
