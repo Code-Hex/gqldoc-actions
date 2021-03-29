@@ -58,12 +58,18 @@ async function run() {
       "user.email",
       "github-actions[bot]@users.noreply.github.com",
     ]);
+
     await exec("git", ["add", "."]);
-    await exec("git", ["commit", "-m", "Update GraphQL document"]);
-    if (pushBranch !== "") {
-      await exec("git", ["push", "origin", pushBranch]);
-    } else {
-      await exec("git", ["push"]);
+    const resultDiff = await exec("git", ["diff", "--exit-code", "--quiet"], {
+      ignoreReturnCode: true,
+    });
+    if (resultDiff !== 0) {
+      await exec("git", ["commit", "-m", "Update GraphQL document"]);
+      if (pushBranch !== "") {
+        await exec("git", ["push", "origin", pushBranch]);
+      } else {
+        await exec("git", ["push"]);
+      }
     }
   } catch (error) {
     core.setFailed(error.message);
