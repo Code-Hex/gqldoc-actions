@@ -143,7 +143,7 @@ async function gqldocInstall(tag: string) {
   }
 
   let re = new RegExp(
-    `${osPlatform}.*${arch}.*${osPlatform === "Windows" ? "*zip" : "*tar.gz"}`
+    `${osPlatform}.*${arch}.*${osPlatform === "Windows" ? "zip" : "tar.gz"}`
   );
   let asset = getReleaseUrl.data.assets.find((obj) => {
     return re.test(obj.name);
