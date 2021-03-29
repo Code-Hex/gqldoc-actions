@@ -1,0 +1,34 @@
+name: 'gqldoc'
+description: 'Automatically generating GraphQL document by gqldoc'
+branding:
+  icon: 'edit'
+  color: 'green'
+inputs:
+  endpoint:
+    description: 'GraphQL http endpoint.'
+    required: false
+  header:
+    description: 'HTTP query string for request. (use with endpoint input). Comma separate.'
+    required: false
+  query:
+    description: 'HTTP query string for request. (use with endpoint input). Comma separate.'
+    required: false
+  schema:
+    description: 'GraphQL schema file. "1 json graphql schema" or "1 or more graphql files (.graphqls, .graphql, .gql)". Comma separate.'
+    required: false
+  output:
+    description: 'Output directory.'
+    required: false
+  gqldoc-version:
+    description: 'gqldoc-version you want'
+    default: latest
+    required: true
+  push-branch:
+    description: 'Destination branch to push generated docs. Can be passed in using $\{{ github.ref }}'
+    required: false
+  github-token:
+    description: 'Token for the repository. Can be passed in using {{ secrets.GITHUB_TOKEN }}'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
