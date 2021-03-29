@@ -1,4 +1,4 @@
-name: "Test Issue Label"
+name: "Test Generating"
 on: [push]
 
 jobs:
