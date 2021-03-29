@@ -64,7 +64,7 @@ async function run() {
       ignoreReturnCode: true,
     });
     if (resultDiff !== 0) {
-      await exec("git", ["commit", "-m", "Update GraphQL document"]);
+      await exec("git", ["commit", "-m", "Update GraphQL document", "-a"]);
       if (pushBranch !== "") {
         await exec("git", ["push", "origin", pushBranch]);
       } else {
