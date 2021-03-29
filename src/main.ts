@@ -16,8 +16,6 @@ async function run() {
     const schema = core.getInput("schema").split(",");
     const output = core.getInput("output");
 
-    const pushBranch = getBranchName();
-
     await gqldocInstall(tag);
 
     let args: string[] = [];
@@ -65,15 +63,20 @@ async function run() {
     });
     if (resultDiff !== 0) {
       await exec("git", ["commit", "-m", "Update GraphQL document", "-a"]);
-      if (pushBranch !== "") {
-        await exec("git", ["push", "origin", pushBranch]);
-      } else {
-        await exec("git", ["push"]);
-      }
+      await gitPush();
     }
   } catch (error) {
     core.setFailed(error.message);
   }
+}
+
+async function gitPush() {
+  const token = core.getInput("github-token", { required: true });
+  const actor = process.env.GITHUB_ACTOR ?? "";
+  const repo = process.env.GITHUB_REPOSITORY ?? "";
+  const remote = `https://${actor}:${token}@github.com/${repo}.git`;
+  const pushBranch = getBranchName();
+  await exec("git", [remote, "push", "origin", pushBranch]);
 }
 
 async function gqldocInstall(tag: string) {
