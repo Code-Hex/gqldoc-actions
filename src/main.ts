@@ -59,7 +59,7 @@ async function run() {
       "github-actions[bot]@users.noreply.github.com",
     ]);
 
-    await exec("git", ["add", "."]);
+    await exec("git", ["add", "-N", "."]);
     const resultDiff = await exec("git", ["diff", "--exit-code", "--quiet"], {
       ignoreReturnCode: true,
     });
