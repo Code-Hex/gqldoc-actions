@@ -26,7 +26,7 @@ jobs:
           persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
           fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
       - name: Push Generated GraphQL Document Current Branch
-        uses: Code-Hex/gqldoc-actions@v1.0.7
+        uses: Code-Hex/gqldoc-actions@v1.0.9
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           schema: schema.graphql
